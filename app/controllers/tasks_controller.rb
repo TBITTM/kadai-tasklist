@@ -2,7 +2,6 @@ class TasksController < ApplicationController
   before_action :require_user_logged_in
 
   def index
-      @task = current_user.tasks
       @pagy, @tasks = pagy(current_user.tasks.order(id: :desc))
   end
 
@@ -56,10 +55,7 @@ private
 
   # Strong Parameter
   
-  def set_task
-      @task = Task.find(params[:id])
-  end
-  
+
   def task_params
       params.require(:task).permit(:content, :status)
   end
